@@ -13,5 +13,6 @@ export const GET_DEFAULT_HEADERS = () => {
   var headers2 = new Headers();
   // You will need to add another header here
   // If you do not, the API will reject your request (:
+  // test
   return headers;
 };
