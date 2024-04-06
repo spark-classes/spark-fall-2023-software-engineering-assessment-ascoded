@@ -1,109 +1,54 @@
-/**
- * You might find it useful to have some dummy data for your own testing.
- * Feel free to write this function if you find that feature desirable.
- * 
- * When you come to office hours for help, we will ask you if you have written
- * this function and tested your project using it.
- */
- import Box from '@mui/material/Box';
- import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import React from 'react';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 
-
-export function dummyData() {
-  return [];
-}
-
-
-const columns: GridColDef<(typeof rows)[number]>[] = [
+const dummyGrades = [
   {
-    field: 'sID',
-    headerName: 'Student ID',
-    width: 150,
-    editable: true,
+    studentId: 'U125',
+    studentName: 'Hirluin',
+    classId: 'C125',
+    className: 'ST 519',
+    semester: 'Fall 2022',
+    finalGrade: 395.8,
   },
   {
-    field: 'sName',
-    headerName: 'Student Name',
-    width: 150,
-    editable: true,
-  },
-  {
-    field: 'cID',
-    headerName: 'Class ID',
-    width: 110,
-    editable: true,
-  },
-  {
-    field: 'cName',
-    headerName: 'Class Name',
-    sortable: false,
-    width: 150,
-  },
-  {
-    field: 'sem',
-    headerName: 'Semester',
-    sortable: false,
-    width: 150,
-  },
-  {
-    field: 'fGrade',
-    headerName: 'Final Grade',
-    sortable: false,
-    width: 150,
-  }
-];
-
-const rows = [
-  {
-    sID: 'U125',
-    sName: 'Hirluin',
-    cID: 'C125',
-    cName: 'ST 519',
-    sem: 'Fall 2022',
-    fGrade: 395.8
-  },
-  {
-    sID: 'U127',
-    sName: 'King Theoden',
-    cID: 'C125',
-    cName: 'ST 519',
-    sem: 'Fall 2022',
-    fGrade: 431.2
-  },
-  {
-    sID: 'U130',
-    sName: 'Aragorn',
-    cID: 'C125',
-    cName: 'ST 519',
-    sem: 'Fall 2022',
-    fGrade: 411.4
-  },
-  {
-    sID: 'U131',
-    sName: 'Arod',
-    cID: 'C125',
-    cName: 'ST 519',
-    sem: 'Fall 2022',
-    fGrade: 419.4
+    studentId: 'U127',
+    studentName: 'King Theoden',
+    classId: 'C125',
+    className: 'ST 519',
+    semester: 'Fall 2022',
+    finalGrade: 431.2,
   },
 ];
 
-/**
- * This is the component where you should write the code for displaying the
- * the table of grades.
- *
- * You might need to change the signature of this function.
- *
- */
- export const GradeTable: React.FC = () => {
-  console.log('GradeTable is rendering', { rows, columns });
-
+export const GradeTable = () => {
   return (
-    <Box sx={{ height: 400, width: '100%' }}>
-      <DataGrid
-        rows={rows}
-        columns={columns}
-      />
-    </Box>
+    <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+      <TableContainer sx={{ maxHeight: 440 }}>
+        <Table stickyHeader aria-label="sticky table">
+          <TableHead>
+            <TableRow>
+              <TableCell>Student ID</TableCell>
+              <TableCell>Student Name</TableCell>
+              <TableCell>Class ID</TableCell>
+              <TableCell>Class Name</TableCell>
+              <TableCell>Semester</TableCell>
+              <TableCell>Final Grade</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {dummyGrades.map((row) => (
+              <TableRow key={row.studentId}>
+                <TableCell>{row.studentId}</TableCell>
+                <TableCell>{row.studentName}</TableCell>
+                <TableCell>{row.classId}</TableCell>
+                <TableCell>{row.className}</TableCell>
+                <TableCell>{row.semester}</TableCell>
+                <TableCell>{row.finalGrade}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </Paper>
   );
-}
+};
