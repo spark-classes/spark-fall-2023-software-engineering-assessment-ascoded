@@ -5,9 +5,7 @@
  * This helps remove confusion between classes and interfaces.
  */
 
-/**
- * This represents a class as returned by the API
- */
+
 export interface IUniversityClass {
   classId: string;
   title: string;
@@ -17,3 +15,19 @@ export interface IUniversityClass {
   status: string;
   semester: string;
 }
+
+export interface IStudent {
+  dateEnrolled: string;
+  name: string;
+  status: string; 
+  universityId: string; 
+}
+
+export interface IGrade {
+  classId: string;
+  grades: { [key: string]: number }; 
+  name: string; 
+  studentId: string;
+}
+
+//based off the schemas
