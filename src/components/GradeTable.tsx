@@ -1,26 +1,12 @@
 import React from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
+import { IGrade } from '../types/api_types';
 
-const dummyGrades = [
-  {
-    studentId: 'U125',
-    studentName: 'Hirluin',
-    classId: 'C125',
-    className: 'ST 519',
-    semester: 'Fall 2022',
-    finalGrade: 395.8,
-  },
-  {
-    studentId: 'U127',
-    studentName: 'King Theoden',
-    classId: 'C125',
-    className: 'ST 519',
-    semester: 'Fall 2022',
-    finalGrade: 431.2,
-  },
-];
+interface GradeTableProps {
+  grades: IGrade[];
+}
 
-export const GradeTable = () => {
+export const GradeTable: React.FC<GradeTableProps> = ({ grades }) => {
   return (
     <Paper sx={{ width: '100%', overflow: 'hidden' }}>
       <TableContainer sx={{ maxHeight: 440 }}>
@@ -30,20 +16,22 @@ export const GradeTable = () => {
               <TableCell>Student ID</TableCell>
               <TableCell>Student Name</TableCell>
               <TableCell>Class ID</TableCell>
-              <TableCell>Class Name</TableCell>
               <TableCell>Semester</TableCell>
-              <TableCell>Final Grade</TableCell>
+              <TableCell>Grades</TableCell> 
             </TableRow>
           </TableHead>
           <TableBody>
-            {dummyGrades.map((row) => (
-              <TableRow key={row.studentId}>
-                <TableCell>{row.studentId}</TableCell>
-                <TableCell>{row.studentName}</TableCell>
-                <TableCell>{row.classId}</TableCell>
-                <TableCell>{row.className}</TableCell>
-                <TableCell>{row.semester}</TableCell>
-                <TableCell>{row.finalGrade}</TableCell>
+            {grades.map((gradeData) => (
+              <TableRow key={gradeData.studentId}>
+                <TableCell>{gradeData.studentId}</TableCell>
+                <TableCell>{gradeData.name}</TableCell>
+                <TableCell>{gradeData.classId}</TableCell>
+                <TableCell>{}</TableCell>
+                <TableCell>
+                  {Object.entries(gradeData.grades).map(([assignment, score]) => (
+                    <div key={assignment}>{`${assignment}: ${score}`}</div>
+                  ))}
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
