@@ -28,6 +28,7 @@ export interface IGrade {
   grades: { [key: string]: number }; 
   name: string; 
   studentId: string;
+  className: string;
 }
 
 //based off the schemas

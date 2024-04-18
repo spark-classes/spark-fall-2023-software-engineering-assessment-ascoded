@@ -53,22 +53,23 @@ function App() {
 
     const fetchGrades = async () => {
       try {
+        // fetching array of student IDs
         const studentResponse = await fetch(`${BASE_API_URL}/class/listStudents/${currClassId}?buid=${MY_BU_ID}`, {
           method: "GET",
           headers: GET_DEFAULT_HEADERS(),
         });
-        const students: IStudent[] = await studentResponse.json(); 
-        
-        // map each student to a grade fetch
-        const gradesPromises = students.map((student) => 
-          fetch(`${BASE_API_URL}/student/listGrades/${student.universityId}/${currClassId}?buid=${MY_BU_ID}`, {
+        const studentIds: string[] = await studentResponse.json();
+
+        // mapping each student ID to a grade fetch
+        const gradesPromises = studentIds.map((studentId) =>
+          fetch(`${BASE_API_URL}/student/listGrades/${studentId}/${currClassId}?buid=${MY_BU_ID}`, {
             method: "GET",
             headers: GET_DEFAULT_HEADERS(),
           }).then((res) => res.json())
         );
 
-        const gradesResults: IGrade[] = await Promise.all(gradesPromises); 
-        setGrades(gradesResults);
+        const gradesResults = (await Promise.all(gradesPromises)) as IGrade[];
+        setGrades(gradesResults); 
       } catch (error) {
         console.error("Failed to fetch grades:", error);
       }
@@ -110,7 +111,7 @@ function App() {
           <Typography variant="h4" gutterBottom>
             Final Grades
           </Typography>
-          <GradeTable grades={grades} />
+          <GradeTable grades={grades} classList={classList} />
         </Grid>
       </Grid>
     </div>
