@@ -29,6 +29,13 @@ export interface IGrade {
   name: string; 
   studentId: string;
   className: string;
+  finalGrade: number;
+}
+
+export interface IAssignment {
+  assignmentId: string;
+  weight: number;
+  classId: string;
 }
 
 //based off the schemas

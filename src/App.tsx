@@ -7,6 +7,7 @@ import { GradeTable } from "./components/GradeTable";
  */
 import { BASE_API_URL, GET_DEFAULT_HEADERS, MY_BU_ID } from "./globals";
 import { IUniversityClass, IStudent, IGrade } from "./types/api_types";
+import { calcAllFinalGrades } from "./utils/calculate_grade";
 
 function App() {
   // You will need to use more of these!
@@ -76,6 +77,25 @@ function App() {
     };
 
     fetchGrades();
+  }, [currClassId]);
+
+  useEffect(() => {
+    if (currClassId) {
+      const fetchAndSetFinalGrades = async () => {
+        try {
+          //console.log(`Fetching final grades for class ID: ${currClassId}`);
+          const finalGrades = await calcAllFinalGrades(currClassId);
+          //console.log("Final grades received: ", finalGrades);
+          setGrades(finalGrades);
+        } catch (error) {
+          console.error("Failed to fetch final grades:", error);
+        }
+      };
+  
+      fetchAndSetFinalGrades();
+    } else {
+      //console.log("No current class ID selected");
+    }
   }, [currClassId]);
 
   return (

@@ -35,11 +35,7 @@ export const GradeTable: React.FC<GradeTableProps> = ({ grades, classList }) => 
                 <TableCell>{gradeData.classId}</TableCell>
                 <TableCell>{findClassNameById(gradeData.classId)}</TableCell>
                 <TableCell>{"fall2022"}</TableCell>
-                <TableCell>
-                  {Object.entries(gradeData.grades)
-                    .map(([assignment, score]) => `${assignment}: ${score}`)
-                    .join(', ')}
-                </TableCell>
+                <TableCell>{gradeData.finalGrade}</TableCell>
               </TableRow>
             ))}
           </TableBody>
