@@ -7,7 +7,7 @@ interface GradeTableProps {
   classList: IUniversityClass[];
 }
 
-export const GradeTable: React.FC<GradeTableProps> = ({ grades, classList }) => {
+export const GradeTable: React.FC<GradeTableProps> = ({ grades, classList}) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 

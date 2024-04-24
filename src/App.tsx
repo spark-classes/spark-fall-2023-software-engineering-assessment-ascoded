@@ -14,6 +14,7 @@ function App() {
   const [currClassId, setCurrClassId] = useState<string>("");
   const [classList, setClassList] = useState<IUniversityClass[]>([]);
   const [grades, setGrades] = useState<IGrade[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
 /**
    * This is JUST an example of how you might fetch some data(with a different API).
@@ -55,6 +56,7 @@ function App() {
     const fetchGrades = async () => {
       try {
         // fetching array of student IDs
+        setIsLoading(true);
         const studentResponse = await fetch(`${BASE_API_URL}/class/listStudents/${currClassId}?buid=${MY_BU_ID}`, {
           method: "GET",
           headers: GET_DEFAULT_HEADERS(),
@@ -71,6 +73,7 @@ function App() {
 
         const gradesResults = (await Promise.all(gradesPromises)) as IGrade[];
         setGrades(gradesResults); 
+        setIsLoading(false);
       } catch (error) {
         console.error("Failed to fetch grades:", error);
       }
@@ -131,7 +134,11 @@ function App() {
           <Typography variant="h4" gutterBottom>
             Final Grades
           </Typography>
-          <GradeTable grades={grades} classList={classList} />
+          {isLoading ? (
+            <div>Loading...</div> 
+          ) : (
+            <GradeTable grades={grades} classList={classList} />
+          )}
         </Grid>
       </Grid>
     </div>
